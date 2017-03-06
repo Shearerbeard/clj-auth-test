@@ -1,6 +1,5 @@
 (ns auth-test.middleware
   (:require [auth-test.env :refer [defaults]]
-            [cemerick.friend :as friend]
             [clojure.tools.logging :as log]
             [auth-test.layout :refer [*app-context* error-page]]
             [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]

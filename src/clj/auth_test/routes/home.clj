@@ -14,10 +14,18 @@
   (layout/render "about.html"))
 
 (defroutes home-routes
-  (GET "/" [] (home-page))
+  (GET "/" request
+    (str "<a href=\"/authlink\">Authorized page</a><br />"
+         "<a href=\"/status\">Status</a><br />"
+         "<a href=\"/logout\">Log out</a>"))
+  (GET "/status" request
+    (let [count (:count (:session request) 0)
+          session (assoc (:session request) :count (inc count))]
+      (-> (ring.util.response/response
+           (str "<p>We've hit the session page " (:count session)3000
+                " times.</p><p>The current session: " session "</p>"))
+          (assoc :session session))))
   (GET "/authlink" request
-    (friend/authorize #{::user} "Authorized Page."))
-  (GET "/oauth2callback" []
-    "Got Here WITH Facebook")
+    (friend/authorize #{::user} (home-page)))
   (GET "/about" [] (about-page)))
 
