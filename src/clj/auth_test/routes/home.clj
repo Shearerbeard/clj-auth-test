@@ -17,5 +17,7 @@
   (GET "/" [] (home-page))
   (GET "/authlink" request
     (friend/authorize #{::user} "Authorized Page."))
+  (GET "/oauth2callback" []
+    "Got Here WITH Facebook")
   (GET "/about" [] (about-page)))
 

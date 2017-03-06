@@ -37,12 +37,12 @@
      :roles #{::user}})
 
 (defn build-oauth-config [current-env]
-  (let [config {:allow-anon? true
-                :workflows [(oauth2/workflow
-                             {:client-config (mk-client-config current-env)
-                              :uri-config (mk-uri-config current-env)
-                              :credential-fn credential-fn})]}]
-    config))
+  {:allow-anon? true
+   :workflows [(oauth2/workflow
+                {:client-config (mk-client-config current-env)
+                 :uri-config (mk-uri-config current-env)
+                 :access-token-parsefn util/get-access-token-from-params
+                 :credential-fn credential-fn})]})
 
 (mount/defstate oauth-config
   :start (build-oauth-config env))
