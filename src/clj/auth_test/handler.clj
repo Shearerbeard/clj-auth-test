@@ -1,7 +1,10 @@
 (ns auth-test.handler
   (:require [compojure.core :refer [routes wrap-routes]]
+            [cemerick.friend :as friend]
             [auth-test.layout :refer [error-page]]
             [auth-test.routes.home :refer [home-routes]]
+            [auth-test.oauth :refer [oauth-config]]
+            [clojure.tools.logging :as log]
             [compojure.route :as route]
             [auth-test.env :refer [defaults]]
             [mount.core :as mount]
@@ -21,5 +24,8 @@
         (error-page {:status 404
                      :title "page not found"})))))
 
-
-(defn app [] (middleware/wrap-base #'app-routes))
+(defn app []
+  (->
+   (middleware/wrap-base #'app-routes)
+   ;; (friend/authenticate oauth-config)
+   ))

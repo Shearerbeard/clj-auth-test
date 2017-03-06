@@ -1,9 +1,9 @@
 (ns auth-test.core
   (:require [auth-test.handler :as handler]
-            [auth-test.oauth]
             [luminus.repl-server :as repl]
             [luminus.http-server :as http]
             [auth-test.config :refer [env]]
+            [auth-test.oauth]
             [cider.nrepl :refer [cider-nrepl-handler]]
             [clojure.tools.cli :refer [parse-opts]]
             [clojure.tools.logging :as log]
