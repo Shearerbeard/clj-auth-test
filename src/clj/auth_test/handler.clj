@@ -17,6 +17,7 @@
 (def app-routes
   (routes
     (-> #'home-routes
+        (friend/authenticate oauth-config)
         (wrap-routes middleware/wrap-csrf)
         (wrap-routes middleware/wrap-formats))
     (route/not-found
@@ -25,7 +26,4 @@
                      :title "page not found"})))))
 
 (defn app []
-  (->
-   (middleware/wrap-base #'app-routes)
-   ;; (friend/authenticate oauth-config)
-   ))
+  (middleware/wrap-base #'app-routes))

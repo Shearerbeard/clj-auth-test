@@ -20,8 +20,9 @@
 
 (defroutes home-routes
   (GET "/" [] (home-page))
-  (GET "/authlink" []
+  (GET "/authlink" request
     (friend/authorize #{::user} "Authorized Page."))
   (GET "/temp" [] (temp-page))
+  (GET "/test" request (fn [r] (str r)))
   (GET "/about" [] (about-page)))
 
